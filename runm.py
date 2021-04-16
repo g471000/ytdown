@@ -6,7 +6,7 @@ def main(args):
 	parser.add_argument("--url", type=str, required=False)
 	args = parser.parse_args(args)
 	yt_url = ""
-	if args.url != 0:
+	if args.url != None:
 		yt_url = args.url	
 	else:
 		yt_url = input("Insert URL: ")	
