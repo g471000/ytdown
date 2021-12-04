@@ -17,15 +17,18 @@ def main(args):
         path_m = os.getcwd() + "/music"
         path_v = os.getcwd() + "/video"
         path_mv = os.getcwd() + "/mv"
+        path_adaptive = os.getcwd() + "/adaptive"
 
         filename = yt.title + ".mp4"
         stream = yt.streams
         print("downloading only_audio...")
-        stream.filter(only_audio=True, file_extension='mp4').order_by("abr").first().download(path_m)
+        stream.filter(only_audio=True, file_extension='mp4').order_by("abr").desc().first().download(path_m)
         print("downloading only_video...")
-        stream.filter(only_video=True, file_extension='mp4').order_by("resolution").first().download(path_v)
-        print("downloading only_progressive...")
-        stream.filter(progressive=True, file_extension='mp4').order_by("resolution").first().download(path_mv)
+        stream.filter(only_video=True, file_extension='mp4', vcodec="avc*").order_by("resolution").desc().first().download(path_v)
+        print("downloading progressive...")
+        stream.filter(progressive=True, file_extension='mp4').order_by("resolution").desc().first().download(path_mv)
+        print("downloading adaptive...")
+        stream.filter(adaptive=True, file_extension='mp4').order_by("resolution").desc().first().download(path_adaptive)
         print('success')
 
         yt_url = input("Insert URL or type \"quit\": ")
