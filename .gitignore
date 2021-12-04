@@ -1,4 +1,5 @@
 /music/*
 /video/*
 /mv/*
+.idea/*
 .DS_Store
