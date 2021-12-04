@@ -24,7 +24,7 @@ def main(args):
         print("downloading only_audio...")
         stream.filter(only_audio=True, file_extension='mp4').order_by("abr").desc().first().download(path_m)
         print("downloading only_video...")
-        stream.filter(only_video=True, file_extension='mp4', vcodec="avc*").order_by("resolution").desc().first().download(path_v)
+        stream.filter(only_video=True, file_extension='mp4').order_by("resolution").desc().first().download(path_v)
         print("downloading progressive...")
         stream.filter(progressive=True, file_extension='mp4').order_by("resolution").desc().first().download(path_mv)
         print("downloading adaptive...")
