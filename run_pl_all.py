@@ -1,19 +1,22 @@
-from pytube import YouTube
+from pytube import YouTube, Playlist
 import argparse, sys, os
+from time import sleep
+from random import randint
 
 
 def main(args):
     parser = argparse.ArgumentParser(description="Parsing Argument")
     parser.add_argument("--url", type=str, required=False)
     args = parser.parse_args(args)
-    yt_url = ""
+    yt_pl_url = ""
     if args.url is not None:
-        yt_url = args.url
+        yt_pl_url = args.url
     else:
-        yt_url = input("Insert URL: ")
-    print("yt url is..." + yt_url)
-    while True:
-        yt = YouTube(yt_url)
+        yt_pl_url = input("Insert URL: ")
+    print("yt url is..." + yt_pl_url)
+
+    p = Playlist(yt_pl_url)
+    for yt in p.videos:
         path_m = os.getcwd() + "/music"
         path_v = os.getcwd() + "/video"
         path_mv = os.getcwd() + "/mv"
@@ -32,10 +35,11 @@ def main(args):
         stream.filter(adaptive=True, file_extension='mp4').order_by("resolution").desc().first().download(path_adaptive)
         print('success')
 
-        yt_url = input("Insert URL or type \"quit\": ")
-        if yt_url == "quit":
-            sys.exit()
+        print('sleeping.....')
+        sleep(randint(5, 20))
+        print('end sleeping!!!')
 
+    print('--------finished---------')
 
 if __name__ == '__main__':
     main(sys.argv[1:])
